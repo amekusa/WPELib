@@ -1,3 +1,4 @@
 <?php namespace amekusa\WPELib;
 
-functions::required;
+abstract class main {
+}

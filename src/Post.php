@@ -1,5 +1,7 @@
 <?php namespace amekusa\WPELib;
 
+use amekusa\WPELib\site;
+
 class Post {
 
 	/**
@@ -131,13 +133,13 @@ class Post {
 	 * @return boolean
 	 */
 	public function bindSite() {
-		return bind_site($this->siteId);
+		return site::bind($this->siteId);
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function unbindSite() {
-		return unbind_site();
+		return site::unbind();
 	}
 }

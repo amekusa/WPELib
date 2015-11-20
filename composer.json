@@ -1,18 +1,16 @@
 {
-    "name": "amekusa/wpelib",
-    "authors": [
-        {
-            "name": "amekusa",
-            "email": "post@amekusa.com"
-        }
-    ],
-    "require": {},
-    "autoload" : {
-        "psr-4" : {
-            "amekusa\\WPELib\\" : "src/"
-        },
-        "files" : [
-            "src/main.php"
-        ]
-    }
+	"name" : "amekusa/wpelib",
+	"authors" : [{
+			"name" : "amekusa",
+			"email" : "post@amekusa.com"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"amekusa\\WPELib\\" : "src/"
+		},
+		"files" : [
+			"src/main.php"
+		]
+	}
 }
