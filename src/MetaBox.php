@@ -1,4 +1,4 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib;
 
 class MetaBox {
 

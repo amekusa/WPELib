@@ -1,6 +1,6 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib;
 
-use amekusa\WPELib\site;
+use amekusa\wpelib\site;
 
 class Post {
 

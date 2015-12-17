@@ -1,15 +1,16 @@
 {
-	"name" : "amekusa/wpelib",
-	"authors" : [{
-			"name" : "amekusa",
-			"email" : "post@amekusa.com"
-		}
-	],
-	"autoload" : {
-		"psr-4" : {
-			"amekusa\\WPELib\\" : "src/"
+	"name": "amekusa/wpelib",
+	"description": "A library and framework for WordPress engineers or plugin/theme developers",
+	"license": "GPL-2.0",
+	"authors": [{
+		"name": "amekusa",
+		"email": "post@amekusa.com"
+	}],
+	"autoload": {
+		"psr-4": {
+			"amekusa\\wpelib\\": "src/"
 		},
-		"files" : [
+		"files": [
 			"src/main.php"
 		]
 	}
