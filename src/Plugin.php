@@ -1,4 +1,4 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib; main::required;
 
 class Plugin {
 	protected static $instance;
@@ -11,13 +11,13 @@ class Plugin {
 
 	/**
 	 * Starts the app
-	 * @param string $xEntryPoint The plugin entry point
+	 * @param string $EntryPoint The plugin entry point
 	 */
-	public static function main($xEntryPoint) {
+	public static function main($EntryPoint) {
 		$instance = static::getInstance();
-		$instance->homeDir = dirname($xEntryPoint) . '/';
-		$instance->homeUrl = plugin_dir_url($xEntryPoint);
-		$instance->expression = basename($instance->homeDir) . '/' . basename($xEntryPoint);
+		$instance->homeDir = dirname($EntryPoint) . '/';
+		$instance->homeUrl = plugin_dir_url($EntryPoint);
+		$instance->expression = basename($instance->homeDir) . '/' . basename($EntryPoint);
 	}
 
 	/**

@@ -1,6 +1,6 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib; main::required;
 
-use amekusa\WPELib\site;
+use amekusa\wpelib\site;
 
 class Post {
 
@@ -12,48 +12,48 @@ class Post {
 	}
 
 	/**
-	 * @param integer|\WP_Post $xPost
-	 * @param integer $xSiteId
+	 * @param integer|\WP_Post $Post
+	 * @param integer $SiteId
 	 * @return Post
 	 */
-	public static function getInstance($xPost, $xSiteId = null) {
-		return new static($xPost, $xSiteId);
+	public static function getInstance($Post, $SiteId = null) {
+		return new static($Post, $SiteId);
 	}
 
 	protected
 		$type,
 		$siteId,
 		$id,
-		$core;
+		$raw;
 
 	/**
-	 * @param integer|\WP_Post $xPost A post to wrap
-	 * @param integer $xSiteId
+	 * @param integer|\WP_Post $Post A post to wrap
+	 * @param integer $SiteId
 	 */
-	protected function __construct($xPost, $xSiteId = null) {
-		$this->siteId = isset($xSiteId) ? $xSiteId : get_current_blog_id();
+	protected function __construct($Post, $SiteId = null) {
+		$this->siteId = isset($SiteId) ? $SiteId : get_current_blog_id();
 
-		if ($xPost instanceof \WP_Post) {
-			$this->core = $xPost;
-			$this->id = $xPost->ID;
+		if ($Post instanceof \WP_Post) {
+			$this->raw = $Post;
+			$this->id = $Post->ID;
 
-		} else $this->id = (int) $xPost;
+		} else $this->id = (int) $Post;
 	}
 
-	public function __get($xProp) {
-		return $this->getCore()->$xProp;
+	public function __get($Prop) {
+		return $this->getRaw()->$Prop;
 	}
 
-	public function __set($xProp, $xValue) {
-		$this->getCore()->$xProp = $xValue;
+	public function __set($Prop, $Value) {
+		$this->getRaw()->$Prop = $Value;
 	}
 
 	/**
 	 * @return \WP_Post
 	 */
-	public function getCore() {
-		if (!$this->core) $this->updateCore();
-		return $this->core;
+	public function getRaw() {
+		if (!$this->raw) $this->updateCore();
+		return $this->raw;
 	}
 
 	protected function updateCore() {
@@ -69,7 +69,7 @@ class Post {
 			) throw new \RuntimeException('Type mismatch');
 		}
 
-		$this->core = $post;
+		$this->raw = $post;
 		if ($bound) $this->unbindSite();
 	}
 
@@ -82,12 +82,12 @@ class Post {
 	}
 
 	protected function updateType() {
-		$this->type = Type::getInstance($this->getCore()->post_type);
+		$this->type = Type::getInstance($this->getRaw()->post_type);
 	}
 
-	public function getMeta($xKey, $xIsSingle = false) {
+	public function getMeta($Key, $IsSingle = false) {
 		$bound = $this->bindSite();
-		$r = get_post_meta($this->id, $xKey, $xIsSingle);
+		$r = get_post_meta($this->id, $Key, $IsSingle);
 		if ($bound) $this->unbindSite();
 		return $r;
 	}
@@ -95,28 +95,28 @@ class Post {
 	/**
 	 * TODO Saves this post to the database
 	 * @see http://rudrastyh.com/wordpress/duplicate-post.html
-	 * @param boolean $xForcesCreation
+	 * @param boolean $ForcesCreation
 	 */
-	public function save($xForcesCreation = false) {
+	public function save($ForcesCreation = false) {
 		$bound = $this->bindSite();
 
 		$params = array (
-			'comment_status' => $this->getCore()->comment_status,
-			'ping_status'    => $this->getCore()->ping_status,
-			'post_author'    => $this->getCore()->post_author,
-			'post_content'   => $this->getCore()->post_content,
-			'post_excerpt'   => $this->getCore()->post_excerpt,
-			'post_name'      => $this->getCore()->post_name,
-			'post_parent'    => $this->getCore()->post_parent,
-			'post_password'  => $this->getCore()->post_password,
+			'comment_status' => $this->getRaw()->comment_status,
+			'ping_status'    => $this->getRaw()->ping_status,
+			'post_author'    => $this->getRaw()->post_author,
+			'post_content'   => $this->getRaw()->post_content,
+			'post_excerpt'   => $this->getRaw()->post_excerpt,
+			'post_name'      => $this->getRaw()->post_name,
+			'post_parent'    => $this->getRaw()->post_parent,
+			'post_password'  => $this->getRaw()->post_password,
 			'post_status'    => 'draft',
-			'post_title'     => $this->getCore()->post_title,
-			'post_type'      => $this->getCore()->post_type,
-			'to_ping'        => $this->getCore()->to_ping,
-			'menu_order'     => $this->getCore()->menu_order
+			'post_title'     => $this->getRaw()->post_title,
+			'post_type'      => $this->getRaw()->post_type,
+			'to_ping'        => $this->getRaw()->to_ping,
+			'menu_order'     => $this->getRaw()->menu_order
 		);
 
-		if (!$xForcesCreation) $params['ID'] = $this->id;
+		if (!$ForcesCreation) $params['ID'] = $this->id;
 
 		$id = wp_insert_post($params);
 

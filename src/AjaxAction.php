@@ -1,4 +1,4 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib; main::required;
 
 /**
  * Derived from amekusa\WPVagrantize
@@ -11,21 +11,21 @@ class AjaxAction {
 	private $isNoPriv;
 	private $isRegistered;
 
-	public function __construct($xName, $xCallback, $xIsNoPriv = false) {
-		$this->name = $xName;
-		$this->callback = $xCallback;
-		$this->isNoPriv = $xIsNoPriv;
+	public function __construct($Name, $Callback, $IsNoPriv = false) {
+		$this->name = $Name;
+		$this->callback = $Callback;
+		$this->isNoPriv = $IsNoPriv;
 		$this->nonce = wp_create_nonce($this->name);
 	}
 
-	public function register($xPriority = 10) {
+	public function register($Priority = 10) {
 		if ($this->isRegistered) throw new \RuntimeException('The AjaxAction is already registered');
 		$action = function () {
 			$this->preAction();
 			call_user_func($this->callback);
 		};
-		add_action('wp_ajax_' . $this->name, $action, $xPriority);
-		if ($this->isNoPriv) add_action('wp_ajax_nopriv_' . $this->name, $action, $xPriority);
+		add_action('wp_ajax_' . $this->name, $action, $Priority);
+		if ($this->isNoPriv) add_action('wp_ajax_nopriv_' . $this->name, $action, $Priority);
 		$this->isRegistered = true;
 	}
 

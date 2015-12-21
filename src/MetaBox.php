@@ -1,13 +1,13 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib; main::required;
 
 class MetaBox {
 
 	/**
-	 * @param string $xId
+	 * @param string $Id
 	 * @return MetaBox
 	 */
-	public static function getInstance($xId) {
-		return new static($xId);
+	public static function getInstance($Id) {
+		return new static($Id);
 	}
 
 	protected
@@ -20,41 +20,41 @@ class MetaBox {
 		$type;
 
 	/**
-	 * @param string $xId
+	 * @param string $Id
 	 */
-	public function __construct($xId) {
-		$this->id = $xId;
+	public function __construct($Id) {
+		$this->id = $Id;
 	}
 
 	/**
-	 * @param callable $xSave
+	 * @param callable $Save
 	 */
-	public function setSave($xSave) {
-		$this->save = $xSave;
+	public function setSave($Save) {
+		$this->save = $Save;
 		return $this;
 	}
 
 	/**
-	 * @param callable $xView
+	 * @param callable $View
 	 */
-	public function setView($xView) {
-		$this->view = $xView;
+	public function setView($View) {
+		$this->view = $View;
 		return $this;
 	}
 
 	/**
-	 * @param string $xPriority
+	 * @param string $Priority
 	 */
-	public function setPriority($xPriority) {
-		$this->priority = $xPriority;
+	public function setPriority($Priority) {
+		$this->priority = $Priority;
 		return $this;
 	}
 
 	/**
-	 * @param string $xContext
+	 * @param string $Context
 	 */
-	public function setContext($xContext) {
-		$this->context = $xContext;
+	public function setContext($Context) {
+		$this->context = $Context;
 		return $this;
 	}
 
@@ -66,10 +66,10 @@ class MetaBox {
 	}
 
 	/**
-	 * @param string $xTitle
+	 * @param string $Title
 	 */
-	public function setTitle($xTitle) {
-		$this->title = $xTitle;
+	public function setTitle($Title) {
+		$this->title = $Title;
 		return $this;
 	}
 
@@ -88,10 +88,10 @@ class MetaBox {
 	}
 
 	/**
-	 * @param string|Type|array $xType
+	 * @param string|Type|array $Type
 	 */
-	public function setType($xType) {
-		$this->type = $xType;
+	public function setType($Type) {
+		$this->type = $Type;
 		return $this;
 	}
 
@@ -102,24 +102,24 @@ class MetaBox {
 				$this->id,
 				$this->title,
 
-				function ($xPost) {
+				function ($Post) {
 					if ($this->save) wp_nonce_field('save', "nonce-{$this->id}");
-					call_user_func($this->view, $xPost);
+					call_user_func($this->view, $Post);
 				},
 				null, $this->context, $this->priority
 			);
 		};
 
-		$save = $this->save ? function ($xPostId, $xPost, $xUpdate) {
+		$save = $this->save ? function ($PostId, $Post, $Update) {
 
 			// Check the nonce
 			if (!isset($_POST["nonce-{$this->id}"])) return;
 			if (!wp_verify_nonce($_POST["nonce-{$this->id}"], 'save')) return;
 
 			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return; // Abort autosave
-			if (!current_user_can('edit_post', $xPostId)) return; // Check the user's permissions
+			if (!current_user_can('edit_post', $PostId)) return; // Check the user's permissions
 
-			call_user_func_array($this->save, array ($xPostId, $xPost, $xUpdate));
+			call_user_func_array($this->save, array ($PostId, $Post, $Update));
 
 		} : null;
 

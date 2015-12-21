@@ -1,4 +1,4 @@
-<?php namespace amekusa\WPELib;
+<?php namespace amekusa\wpelib;
 
 abstract class site {
 
@@ -13,12 +13,12 @@ abstract class site {
 	}
 
 	/**
-	 * @param integer $xSiteId
+	 * @param integer $SiteId
 	 * @return boolean True on success, False on failure
 	 */
-	static function bind($xSiteId) {
+	static function bind($SiteId) {
 		if (!function_exists('switch_to_blog')) return false;
-		return switch_to_blog($xSiteId);
+		return switch_to_blog($SiteId);
 	}
 
 	/**
