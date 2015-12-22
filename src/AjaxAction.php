@@ -1,35 +1,50 @@
 <?php namespace amekusa\wpelib; main::required;
 
 /**
- * Derived from amekusa\WPVagrantize
  * @author amekusa <post@amekusa.com>
+ * @todo Test
  */
-class AjaxAction {
-	private $name;
-	private $callback;
-	private $nonce;
-	private $isNoPriv;
-	private $isRegistered;
+class AjaxAction extends Action {
+	protected
+		$name,
+		$nonce,
+		$isNoAuth = false;
 
-	public function __construct($Name, $Callback, $IsNoPriv = false) {
+	/**
+	 * @param string $Name
+	 * @param callable $Callback
+	 * @return AjaxAction
+	 */
+	public static function create($Name, $Callback) {
+		$r = new static($Name, $Callback);
+		return $r;
+	}
+
+	public function __construct($Name, $Callback) {
+		parent::__construct('wp_ajax_'.$Name, $Callback);
 		$this->name = $Name;
-		$this->callback = $Callback;
-		$this->isNoPriv = $IsNoPriv;
 		$this->nonce = wp_create_nonce($this->name);
 	}
 
-	public function register($Priority = 10) {
-		if ($this->isRegistered) throw new \RuntimeException('The AjaxAction is already registered');
-		$action = function () {
-			$this->preAction();
-			call_user_func($this->callback);
-		};
-		add_action('wp_ajax_' . $this->name, $action, $Priority);
-		if ($this->isNoPriv) add_action('wp_ajax_nopriv_' . $this->name, $action, $Priority);
-		$this->isRegistered = true;
+	public function getName() {
+		return $this->name;
 	}
 
-	private function preAction() {
+	public function getNonce() {
+		return $this->nonce;
+	}
+
+	public function setNoAuth($IsNoAuth = true) {
+		$this->isNoAuth = $IsNoAuth;
+		return $this;
+	}
+
+	protected function _register() {
+		parent::_register();
+		if ($this->isNoAuth) add_action('wp_ajax_nopriv_'.$this->name, array ($this, 'invoke'), $this->priority, $this->nArgs);
+	}
+
+	protected function preInvoke() {
 		if (!check_ajax_referer($this->name, 'nonce', false)) {
 			header('HTTP/1.1 500 Internal Server Error');
 			die();
@@ -37,15 +52,7 @@ class AjaxAction {
 		if (!defined('AJAX_ACTION')) define('AJAX_ACTION', $this->name);
 	}
 
-	public final function getName() {
-		return $this->name;
-	}
-
-	public final function getNonce() {
-		return $this->nonce;
-	}
-
-	public function forJQAjax() {
+	public function toJQuery() {
 		return array (
 			'url' => admin_url('admin-ajax.php'),
 			'method' => 'POST', // jQuery >= 1.9.0
