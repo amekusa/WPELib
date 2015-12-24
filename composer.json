@@ -7,7 +7,7 @@
 		"email": "post@amekusa.com"
 	}],
 	"require": {
-		"amekusa/plz": "^0.6.0"
+		"amekusa/plz": "^0.7.1"
 	},
 	"autoload": {
 		"psr-4": {
