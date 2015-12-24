@@ -1,0 +1,71 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c777a30a91fb5b36264821c2b432eed9",
+    "content-hash": "9e0076ede32d9fc189a6cb04e18ab837",
+    "packages": [
+        {
+            "name": "amekusa/plz",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/amekusa/plz.git",
+                "reference": "88070ab8d7f9e1bc5d35f15709da821dc949e179"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/amekusa/plz/zipball/88070ab8d7f9e1bc5d35f15709da821dc949e179",
+                "reference": "88070ab8d7f9e1bc5d35f15709da821dc949e179",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.5"
+            },
+            "require-dev": {
+                "apigen/apigen": "^4.1",
+                "phpunit/phpunit": "5.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "amekusa\\plz\\": "src"
+                },
+                "files": [
+                    "src/main.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "amekusa",
+                    "email": "post@amekusa.com",
+                    "homepage": "https://github.com/amekusa",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A handy PHP library for lazy programmers",
+            "homepage": "http://amekusa.github.io/plz",
+            "keywords": [
+                "general",
+                "lazy",
+                "sugar",
+                "syntax"
+            ],
+            "time": "2015-12-24 05:27:27"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

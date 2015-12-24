@@ -1,18 +1,17 @@
 {
-    "name": "amekusa/wpelib",
-    "authors": [
-        {
-            "name": "amekusa",
-            "email": "post@amekusa.com"
-        }
-    ],
-    "require": {},
-    "autoload" : {
-        "psr-4" : {
-            "amekusa\\WPELib\\" : "src/"
-        },
-        "files" : [
-            "src/main.php"
-        ]
-    }
+	"name": "amekusa/wpelib",
+	"description": "Library and framework for WordPress engineers or plugin/theme developers",
+	"license": "GPL-2.0",
+	"authors": [{
+		"name": "amekusa",
+		"email": "post@amekusa.com"
+	}],
+	"require": {
+		"amekusa/plz": "^0.7.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"amekusa\\wpelib\\": "src/"
+		}
+	}
 }
