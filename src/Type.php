@@ -1,4 +1,4 @@
-<?php namespace amekusa\wpelib;
+<?php namespace amekusa\wpelib; main::required;
 
 class Type {
 

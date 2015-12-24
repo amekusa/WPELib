@@ -1,4 +1,4 @@
-<?php namespace amekusa\wpelib;
+<?php namespace amekusa\wpelib; main::required;
 
 abstract class site {
 
@@ -28,5 +28,4 @@ abstract class site {
 		if (!function_exists('restore_current_blog')) return false;
 		return restore_current_blog();
 	}
-
 }
