@@ -51,11 +51,11 @@ class Type {
 	 * @return \stdClass A post type object
 	 */
 	public function getRaw() {
-		if (!$this->raw) $this->updateCore();
+		if (!$this->raw) $this->updateRaw();
 		return $this->raw;
 	}
 
-	protected function updateCore() {
+	protected function updateRaw() {
 		if (!post_type_exists($this->name)) $this->register();
 		$this->raw = get_post_type_object($this->name);
 	}
