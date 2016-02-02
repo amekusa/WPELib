@@ -52,11 +52,11 @@ class Post {
 	 * @return \WP_Post
 	 */
 	public function getRaw() {
-		if (!$this->raw) $this->updateCore();
+		if (!$this->raw) $this->updateRaw();
 		return $this->raw;
 	}
 
-	protected function updateCore() {
+	protected function updateRaw() {
 		$bound = $this->bindSite();
 		if (!$post = get_post($this->id)) throw new \RuntimeException('Post not found');
 

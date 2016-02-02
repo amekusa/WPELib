@@ -55,12 +55,14 @@ abstract class Hook {
 		if ($this->isRegistered) return;
 		$this->_register();
 		$this->isRegistered = true;
+		return $this;
 	}
 
 	public final function deregister() {
 		if (!$this->isRegistered) return;
 		$this->_deregister();
 		$this->isRegistered = false;
+		return $this;
 	}
 
 	public function invoke() {
