@@ -15,9 +15,24 @@ class Plugin {
 	 */
 	public static function main($EntryPoint) {
 		$instance = static::getInstance();
-		$instance->homeDir = dirname($EntryPoint) . '/';
+		$instance->homeDir = dirname($EntryPoint).'/';
 		$instance->homeUrl = plugin_dir_url($EntryPoint);
-		$instance->expression = basename($instance->homeDir) . '/' . basename($EntryPoint);
+		$instance->expression = basename($instance->homeDir).'/'.basename($EntryPoint);
+
+		if (is_callable($x = array ($instance, 'onActivate')))
+			register_activation_hook($EntryPoint, $x);
+
+		if (is_callable($x = array ($instance, 'onDeactivate')))
+			register_deactivation_hook($EntryPoint, $x);
+
+		if (is_callable($x = array ($instance, 'init')))
+			add_action('init', $x);
+
+		if (is_callable($x = array ($instance, 'adminInit')))
+			add_action('admin_init', $x);
+
+		if (is_callable($x = array ($instance, 'setupMenus')))
+			add_action('admin_menu', $x);
 	}
 
 	/**
