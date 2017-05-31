@@ -2,10 +2,12 @@
 	"name": "amekusa/wpelib",
 	"description": "Library and framework for WordPress engineers or plugin/theme developers",
 	"license": "GPL-2.0",
-	"authors": [{
-		"name": "amekusa",
-		"email": "post@amekusa.com"
-	}],
+	"authors": [
+		{
+			"name": "amekusa",
+			"email": "hello@amekusa.com"
+		}
+	],
 	"require": {
 		"amekusa/plz": "^0.9.0"
 	},

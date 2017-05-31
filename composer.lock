@@ -4,21 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "32a7e2619c060e5754594e05c731c6bc",
     "content-hash": "83a8364137ee32c91382508f8320726f",
     "packages": [
         {
             "name": "amekusa/plz",
-            "version": "0.9.0",
+            "version": "0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amekusa/plz.git",
-                "reference": "043c67bc8e9e159b0cc78259de9e74f7e9a0e5dc"
+                "reference": "1e2f7853c176a123c717da0d18851d09308b751f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amekusa/plz/zipball/043c67bc8e9e159b0cc78259de9e74f7e9a0e5dc",
-                "reference": "043c67bc8e9e159b0cc78259de9e74f7e9a0e5dc",
+                "url": "https://api.github.com/repos/amekusa/plz/zipball/1e2f7853c176a123c717da0d18851d09308b751f",
+                "reference": "1e2f7853c176a123c717da0d18851d09308b751f",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +53,7 @@
                 "sugar",
                 "syntax"
             ],
-            "time": "2016-02-02 09:03:16"
+            "time": "2016-03-16T07:07:04+00:00"
         }
     ],
     "packages-dev": [],
