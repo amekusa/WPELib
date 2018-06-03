@@ -14,7 +14,7 @@ function init() {
 	static $done = false;
 	if ($done) return;
 	set_exception_handler(function (\Exception $E) {
-		if (!$E instanceof LocalException) throw $E; // Not WPELib issue
+		if (!$E instanceof UnexpectedException) throw $E; // Not WPELib issue
 
 		// TODO: Do special (ex. Show bug-report instructions)
 
