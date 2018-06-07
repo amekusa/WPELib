@@ -1,4 +1,8 @@
 <?php namespace amekusa\wpelib; main::required;
 
-interface UnexpectedException {
+/**
+ * Probably a bug
+ * @author amekusa
+ */
+class UnexpectedException extends \RuntimeException {
 }
