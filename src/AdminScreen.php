@@ -4,15 +4,23 @@ class AdminScreen {
 	protected
 		$raw,
 		$deps,
-		$fnOnLoad,
-		$fnRender;
+		$content,
+		$fnOnLoad;
 
 	/**
-	 * @param callable $FnRender A callback to render the screen content
+	 * @param string|callable $Content The screen content
+	 * @return AdminScreen New instance
 	 */
-	protected function __construct($FnRender = null) {
+	public static function create($Content = null) {
+		return new static($Content);
+	}
+
+	/**
+	 * @param string|callable $Content The screen content
+	 */
+	public function __construct($Content = null) {
 		$this->deps = array ();
-		$this->fnRender = $FnRender;
+		$this->content = $Content;
 	}
 
 	public function __get($Prop) {
@@ -31,17 +39,17 @@ class AdminScreen {
 	}
 
 	/**
-	 * @param callable $X
+	 * @param string|callable $X
 	 */
-	public function setFnOnLoad($X) {
-		$this->fnOnLoad = $X;
+	public function setContent($X) {
+		$this->content = $X;
 	}
 
 	/**
 	 * @param callable $X
 	 */
-	public function setFnRender($X) {
-		$this->fnRender = $X;
+	public function setFnOnLoad($X) {
+		$this->fnOnLoad = $X;
 	}
 
 	public function addScript(Script $X) {
@@ -63,6 +71,7 @@ class AdminScreen {
 	}
 
 	public function render() {
-		if (is_callable($this->fnRender)) call_user_func($this->fnRender);
+		if (is_string($this->content)) echo $this->content;
+		else if (is_callable($this->content)) call_user_func($this->content);
 	}
 }
