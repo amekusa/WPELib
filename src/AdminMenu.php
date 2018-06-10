@@ -10,6 +10,7 @@ class AdminMenu implements Registerable {
 		$parent,
 		$screen,
 		$title,
+		$label,
 		$icon,
 		$position,
 		$capability,
@@ -17,10 +18,22 @@ class AdminMenu implements Registerable {
 		$isRegistered = false;
 
 	/**
-	 * @param string $Slug An unique slug
+	 * @param string $Title The title
+	 * @param string $Slug=null An unique slug
+	 * @param string $Parent=null The parent menu slug
+	 * @return AdminMenu New instance
+	 */
+	public static function create($Title, $Slug = null, $Parent = null) {
+		return new static($Title, $Slug, $Parent);
+	}
+
+	/**
+	 * @param string $Title The title
+	 * @param string $Slug=null An unique slug
 	 * @param string $Parent=null The parent menu slug
 	 */
-	public function __construct($Slug, $Parent = null) {
+	public function __construct($Title, $Slug = null, $Parent = null) {
+		$this->title = $Title;
 		$this->slug = $Slug;
 		$this->parent = $Parent;
 	}
@@ -40,7 +53,7 @@ class AdminMenu implements Registerable {
 	 * @return string
 	 */
 	public function getSlug() {
-		return $this->slug;
+		return $this->slug ?: $this->getTitle();
 	}
 
 	/**
@@ -63,6 +76,13 @@ class AdminMenu implements Registerable {
 	 */
 	public function getTitle() {
 		return $this->title;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLabel() {
+		return isset($this->label) ? $this->label : $this->getTitle();
 	}
 
 	/**
@@ -92,6 +112,10 @@ class AdminMenu implements Registerable {
 	 */
 	public function getHookSuffix() {
 		return $this->hookSuffix;
+	}
+
+	protected function setAsRegistered($X = true) {
+		$this->isRegistered = $X;
 	}
 
 	/**
@@ -131,6 +155,16 @@ class AdminMenu implements Registerable {
 	 * @param string $X
 	 * @return AdminMenu This
 	 */
+	public function setLabel($X) {
+		AlreadyRegisteredException::check($this);
+		$this->label = $X;
+		return $this;
+	}
+
+	/**
+	 * @param string $X
+	 * @return AdminMenu This
+	 */
 	public function setIcon($X) {
 		AlreadyRegisteredException::check($this);
 		$this->icon = $X;
@@ -162,12 +196,12 @@ class AdminMenu implements Registerable {
 	 * @param int $Priority Hook priority
 	 */
 	public function register($Priority = 10) {
-		add_action('admin_menu', function () {
+		$fn = function () use ($Priority) {
 			if ($this->getParent()) {
 				$this->hookSuffix = add_submenu_page( // @formatter:off
 					$this->getParent(), // Parent menu
 					$this->getTitle(), // Page title
-					$this->getTitle(), // Menu title
+					$this->getLabel(), // Menu title
 					$this->getCapability()->getRaw(), // Capability
 					$this->getSlug(), // Menu slug
 					$this->getScreen() ? array ($this->getScreen(), 'render') : '' // Callback to render the screen
@@ -176,20 +210,22 @@ class AdminMenu implements Registerable {
 			} else {
 				$this->hookSuffix = add_menu_page( // @formatter:off
 					$this->getTitle(), // Page title
-					$this->getTitle(), // Menu title
+					$this->getLabel(), // Menu title
 					$this->getCapability()->getRaw(), // Capability
 					$this->getSlug(), // Menu slug
 					$this->getScreen() ? array ($this->getScreen(), 'render') : '' // Callback to render the screen
 				); // @formatter:on
 			}
 			if ($this->getScreen()) {
-				add_action("load-{$this->hookSuffix}", function () use ($this) {
+				add_action("load-{$this->hookSuffix}", function () {
 					$this->getScreen()->onLoad();
-					$this->isRegistered = true;
+					$this->setAsRegistered();
 				}, $Priority);
 
-			} else $this->isRegistered = true;
-
-		}, $Priority);
+			} else $this->setAsRegistered();
+		};
+		$action = 'admin_menu';
+		if (doing_action($action)) call_user_func($fn);
+		else add_action($action, $fn, $Priority);
 	}
 }
