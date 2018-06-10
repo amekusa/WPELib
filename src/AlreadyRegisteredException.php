@@ -7,6 +7,6 @@ class AlreadyRegisteredException extends \RuntimeException {
 	 * @throws static
 	 */
 	public static function check(Registerable $X) {
-		if (!$X->isRegistered()) throw new static();
+		if ($X->isRegistered()) throw new static();
 	}
 }
