@@ -28,7 +28,7 @@ class Script extends Dependency {
 	 * @param boolean $X
 	 * @return Script This
 	 */
-	public function beFooter($X = true) {
+	public function SetAsFooter($X = true) {
 		AlreadyRegisteredException::check($this);
 		$this->isFooter = $X;
 		return $this;
