@@ -4,12 +4,13 @@
  * A WordPress hook represetation.
  * @author amekusa <post@amekusa.com>
  */
-abstract class Hook {
+abstract class Hook implements Registerable {
 	protected
 		$hookPoint,
 		$callback,
 		$priority = 10,
 		$nArgs = 1,
+		$hasDone = 0,
 		$isRecursable = false,
 		$isRegistered = false;
 
@@ -28,8 +29,18 @@ abstract class Hook {
 		$this->callback = $Callback;
 	}
 
+	public function isRecursable() {
+		return $this->isRecursable;
+	}
+
 	public function isRegistered() {
 		return $this->isRegistered;
+	}
+
+	public abstract function isDoing();
+
+	public function hasDone() {
+		return $this->hasDone;
 	}
 
 	public function getHookPoint() {
@@ -66,19 +77,19 @@ abstract class Hook {
 	}
 
 	public function invoke() {
-		static $recursive = false;
-		if (!$this->isRecursable && $recursive) return;
-		$recursive = true;
+		static $invoking = false;
+		if (!$this->isRecursable && $invoking) return; // Prevent recursion
+		$invoking = true;
 		if (!is_callable($this->callback)) throw new \RuntimeException('Uncallable callback');
 		$args = func_get_args();
 		$this->preInvoke($args);
 		$r = $args ? call_user_func_array($this->callback, $args) : call_user_func($this->callback);
-		$recursive = false;
+		$invoking = false;
+		$this->hasDone++;
 		return $r;
 	}
 
-	protected function preInvoke() {
-	}
+	protected function preInvoke($Args) {}
 
 	protected abstract function _register();
 	protected abstract function _deregister();
