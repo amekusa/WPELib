@@ -57,8 +57,8 @@ abstract class Hook implements Registerable {
 		return $this;
 	}
 
-	public function setRecursable($IsRecursable = true) {
-		$this->isRecursable = $IsRecursable;
+	public function setAsRecursable($X = true) {
+		$this->isRecursable = $X;
 		return $this;
 	}
 
