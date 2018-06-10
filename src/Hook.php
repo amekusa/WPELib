@@ -47,13 +47,13 @@ abstract class Hook implements Registerable {
 		return $this->hookPoint;
 	}
 
-	public function setPriority($Priority) {
-		$this->priority = $Priority;
+	public function setPriority($X) {
+		$this->priority = $X;
 		return $this;
 	}
 
-	public function setNArgs($NArgs) {
-		$this->nArgs = $NArgs;
+	public function setNArgs($X) {
+		$this->nArgs = $X;
 		return $this;
 	}
 
