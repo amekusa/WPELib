@@ -4,8 +4,8 @@ class Script extends Dependency {
 	protected
 		$isFooter;
 
-	public function __construct($Slug, $Uri = '', $Deps = array (), $Ver = false, $IsFooter = false) {
-		parent::__construct($Slug, $Uri, $Deps, $Ver);
+	public function __construct($Slug, $Url = '', $Deps = array (), $Ver = false, $IsFooter = false) {
+		parent::__construct($Slug, $Url, $Deps, $Ver);
 		$this->isFooter = $IsFooter;
 	}
 
@@ -28,14 +28,14 @@ class Script extends Dependency {
 	 * @param boolean $X
 	 * @return Script This
 	 */
-	public function SetAsFooter($X = true) {
+	public function setAsFooter($X = true) {
 		AlreadyRegisteredException::check($this);
 		$this->isFooter = $X;
 		return $this;
 	}
 
 	public function register() {
-		wp_register_script($this->slug, $this->uri, $this->deps, $this->ver, $this->isFooter);
+		wp_register_script($this->slug, $this->url, $this->deps, $this->ver, $this->isFooter);
 	}
 
 	public function deregister() {
@@ -44,7 +44,7 @@ class Script extends Dependency {
 
 	public function queue() {
 		if ($this->isRegistered()) wp_enqueue_script($this->slug);
-		else wp_enqueue_script($this->slug, $this->uri, $this->deps, $this->ver, $this->isFooter);
+		else wp_enqueue_script($this->slug, $this->url, $this->deps, $this->ver, $this->isFooter);
 	}
 
 	public function dequeue() {
@@ -52,9 +52,9 @@ class Script extends Dependency {
 	}
 
 	/**
-	 * Synchronize data from PHP to a object in JS
-	 * @param string $To A global object name to bind data
-	 * @param array $Data An associated array that contains data
+	 * Passes values in PHP to an object in JS
+	 * @param string $To Name of a JS object
+	 * @param array $Data An associative array that contains the values to pass
 	 */
 	public function bind($To, array $Data) {
 		if (!$this->isRegistered()) $this->register();

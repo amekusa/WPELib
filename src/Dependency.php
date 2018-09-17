@@ -3,13 +3,13 @@
 abstract class Dependency implements Registerable {
 	protected
 		$slug,
-		$uri,
+		$url,
 		$deps,
 		$ver;
 
-	public function __construct($Slug, $Uri = '', $Deps = array (), $Ver = false) {
+	public function __construct($Slug, $Url = '', $Deps = array (), $Ver = false) {
 		$this->slug = $Slug;
-		$this->uri = $Uri;
+		$this->url = $Url;
 		$this->deps = $Deps;
 		$this->ver = $Ver;
 	}
@@ -24,8 +24,8 @@ abstract class Dependency implements Registerable {
 	/**
 	 * @return string
 	 */
-	public function getUri() {
-		return $this->uri;
+	public function getUrl() {
+		return $this->url;
 	}
 
 	/**
@@ -45,8 +45,8 @@ abstract class Dependency implements Registerable {
 	/**
 	 * @param string $X
 	 */
-	public function setUri($X) {
-		$this->uri = $X;
+	public function setUrl($X) {
+		$this->url = $X;
 		return $this;
 	}
 

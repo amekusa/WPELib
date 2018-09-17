@@ -4,8 +4,8 @@ class Style extends Dependency {
 	protected
 		$media;
 
-	public function __construct($Slug, $Uri = '', $Deps = array (), $Ver = false, $Media = 'all') {
-		parent::__construct($Slug, $Uri, $Deps, $Ver);
+	public function __construct($Slug, $Url = '', $Deps = array (), $Ver = false, $Media = 'all') {
+		parent::__construct($Slug, $Url, $Deps, $Ver);
 		$this->media = $Media;
 	}
 
@@ -35,7 +35,7 @@ class Style extends Dependency {
 	}
 
 	public function register() {
-		wp_register_style($this->slug, $this->uri, $this->deps, $this->ver, $this->media);
+		wp_register_style($this->slug, $this->url, $this->deps, $this->ver, $this->media);
 	}
 
 	public function deregister() {
@@ -44,7 +44,7 @@ class Style extends Dependency {
 
 	public function queue() {
 		if ($this->isRegistered()) wp_enqueue_style($this->slug);
-		else wp_enqueue_style($this->slug, $this->uri, $this->deps, $this->ver, $this->media);
+		else wp_enqueue_style($this->slug, $this->url, $this->deps, $this->ver, $this->media);
 	}
 
 	public function dequeue() {
