@@ -81,7 +81,7 @@ class MetaBox {
 	}
 
 	/**
-	 * @return the unknown_type
+	 * @return string|Type|array
 	 */
 	public function getType() {
 		return $this->type;
