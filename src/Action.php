@@ -6,11 +6,11 @@ class Action extends Hook {
 		return doing_action($this->hookPoint);
 	}
 
-	protected function _register() {
+	public function register() {
 		add_action($this->hookPoint, array ($this, 'invoke'), $this->priority, $this->nArgs);
 	}
 
-	protected function _deregister() {
+	public function deregister() {
 		remove_action($this->hookPoint, array ($this, 'invoke'), $this->priority, $this->nArgs);
 	}
 }

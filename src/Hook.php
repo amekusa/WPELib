@@ -62,35 +62,18 @@ abstract class Hook implements Registerable {
 		return $this;
 	}
 
-	public final function register() {
-		if ($this->isRegistered) return;
-		$this->_register();
-		$this->isRegistered = true;
-		return $this;
-	}
-
-	public final function deregister() {
-		if (!$this->isRegistered) return;
-		$this->_deregister();
-		$this->isRegistered = false;
-		return $this;
-	}
+	public abstract function register();
+	public abstract function deregister();
 
 	public function invoke() {
 		static $invoking = false;
 		if (!$this->isRecursable && $invoking) return; // Prevent recursion
 		$invoking = true;
-		if (!is_callable($this->callback)) throw new \RuntimeException('Uncallable callback');
+		if (!is_callable($this->callback)) throw new \RuntimeException('Invalid Callback');
 		$args = func_get_args();
-		$this->preInvoke($args);
 		$r = $args ? call_user_func_array($this->callback, $args) : call_user_func($this->callback);
 		$invoking = false;
 		$this->hasDone++;
 		return $r;
 	}
-
-	protected function preInvoke($Args) {}
-
-	protected abstract function _register();
-	protected abstract function _deregister();
 }

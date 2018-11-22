@@ -6,11 +6,11 @@ class Filter extends Hook {
 		return doing_filter($this->hookPoint);
 	}
 
-	protected function _register() {
+	public function register() {
 		add_filter($this->hookPoint, array ($this, 'invoke'), $this->priority, $this->nArgs);
 	}
 
-	protected function _deregister() {
+	public function deregister() {
 		remove_filter($this->hookPoint, array ($this, 'invoke'), $this->priority, $this->nArgs);
 	}
 }
