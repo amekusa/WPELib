@@ -1,7 +1,7 @@
 <?php namespace amekusa\wpelib; main::required;
 
 /**
- * An menu item in admin
+ * An admin menu item
  * @author amekusa
  */
 class AdminMenu implements Registerable {
@@ -114,14 +114,11 @@ class AdminMenu implements Registerable {
 		return $this->hookSuffix;
 	}
 
-	protected function setAsRegistered($X = true) {
-		$this->isRegistered = $X;
-	}
-
 	/**
 	 * @param string|AdminMenu $X
 	 * Media Library:    'upload.php'
 	 * Tools:            'tools.php'
+	 * Options:          'options-general.php'
 	 * Custom Post Type: 'edit.php?post_type=***'
 	 * @return AdminMenu This
 	 */
@@ -192,7 +189,7 @@ class AdminMenu implements Registerable {
 	}
 
 	/**
-	 * Registers to WP
+	 * Registers itself to WP
 	 * @param int $Priority Hook priority
 	 */
 	public function register($Priority = 10) {
@@ -219,10 +216,10 @@ class AdminMenu implements Registerable {
 			if ($this->getScreen()) {
 				add_action("load-{$this->hookSuffix}", function () {
 					$this->getScreen()->onLoad();
-					$this->setAsRegistered();
+					$this->isRegistered = true;
 				}, $Priority);
 
-			} else $this->setAsRegistered();
+			} else $this->isRegistered = true;
 		};
 		$action = 'admin_menu';
 		if (doing_action($action)) call_user_func($fn);
