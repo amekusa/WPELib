@@ -1,4 +1,4 @@
-<?php namespace amekusa\wpelib; main::required;
+<?php namespace amekusa\wpelib;
 
 abstract class Dependency implements Registerable {
 	protected

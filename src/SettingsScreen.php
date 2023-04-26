@@ -1,4 +1,4 @@
-<?php namespace amekusa\wpelib; main::required;
+<?php namespace amekusa\wpelib;
 
 class SettingsScreen extends AdminScreen {
 	protected

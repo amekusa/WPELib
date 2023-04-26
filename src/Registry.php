@@ -1,4 +1,4 @@
-<?php namespace amekusa\wpelib; main::required;
+<?php namespace amekusa\wpelib;
 
 class Registry {
 	private static $instance;
