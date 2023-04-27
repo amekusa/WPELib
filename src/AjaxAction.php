@@ -1,7 +1,7 @@
 <?php namespace amekusa\wpelib;
 
 /**
- * @author amekusa <post@amekusa.com>
+ * @author amekusa (https://github.com/amekusa)
  * @todo Test
  */
 class AjaxAction extends Action {

@@ -2,7 +2,7 @@
 
 /**
  * A WordPress hook represetation.
- * @author amekusa <post@amekusa.com>
+ * @author amekusa (https://github.com/amekusa)
  */
 abstract class Hook implements Registerable {
 	protected
