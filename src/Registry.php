@@ -1,5 +1,8 @@
 <?php namespace amekusa\wpelib;
 
+/**
+ * This is DRAFT and currently NOT-IN-USE
+ */
 class Registry {
 	private static $instance;
 	private $entries;
