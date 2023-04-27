@@ -1,61 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83a8364137ee32c91382508f8320726f",
-    "packages": [
-        {
-            "name": "amekusa/plz",
-            "version": "0.9.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/amekusa/plz.git",
-                "reference": "1e2f7853c176a123c717da0d18851d09308b751f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/amekusa/plz/zipball/1e2f7853c176a123c717da0d18851d09308b751f",
-                "reference": "1e2f7853c176a123c717da0d18851d09308b751f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.5"
-            },
-            "require-dev": {
-                "apigen/apigen": "^4.1",
-                "phpunit/phpunit": "5.0.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "amekusa\\plz\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "amekusa",
-                    "email": "post@amekusa.com",
-                    "homepage": "https://github.com/amekusa",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A handy PHP library for lazy programmers",
-            "homepage": "http://amekusa.github.io/plz",
-            "keywords": [
-                "general",
-                "lazy",
-                "sugar",
-                "syntax"
-            ],
-            "time": "2016-03-16T07:07:04+00:00"
-        }
-    ],
+    "content-hash": "70004216f6f5564ff59737cb62ba6a9a",
+    "packages": [],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
@@ -63,5 +13,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }

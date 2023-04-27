@@ -8,9 +8,6 @@
 			"email": "hello@amekusa.com"
 		}
 	],
-	"require": {
-		"amekusa/plz": "^0.9.0"
-	},
 	"autoload": {
 		"psr-4": {
 			"amekusa\\wpelib\\": "src/"
