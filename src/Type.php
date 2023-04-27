@@ -60,12 +60,6 @@ class Type {
 		$this->raw = get_post_type_object($this->name);
 	}
 
-	public function reserveRegister(array $Params = array ()) {
-		add_action('init', function () {
-			$this->register($Params);
-		});
-	}
-
 	public function register(array $Params = array ()) {
 		$params = array_merge_recursive(static::getDefaultParams(), $Params);
 		if (!$params) register_post_type($this->name);
